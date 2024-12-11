@@ -1,0 +1,139 @@
+# common references
+components:
+    schemas:
+        User:
+            type: object
+            required:
+                - name
+                - email
+                - password
+            properties:
+                id:
+                    type: integer
+                    description: user id
+                name:
+                    type: string
+                    description: user name
+                email:
+                    type: string
+                    description: user email
+                password:
+                    type: string
+                    description: user password
+                example:
+                    name: Hoa
+                    email: hoa@gmail.com
+
+        Expense:
+            type: object
+            required:
+                - category
+                - amount
+                - date
+            properties:
+                id:
+                    type: integer
+                    description: Expense ID
+                category:
+                    type: string
+                    description: Category name
+                amount:
+                    type: number
+                    format: double
+                    description: Amount spent
+                description:
+                    type: string
+                    description: Description
+                date:
+                    type: string
+                    format: date
+                    description: Date
+                example:
+                    category: Food
+                    amount: 50000
+                    description: Lunch
+                    date: 2024-10-09
+        Categories:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    readOnly: true
+                name:
+                    type: string
+                    example: "Food and Drink"
+                description:
+                    type: string
+                    example: "Expenses for dining out, coffee, etc."
+
+        PaginationMetadata:
+            type: object
+            properties:
+                totalRecords:
+                    type: integer
+                    default: 0
+                    description: The total number of records
+                firstPage:
+                    type: integer
+                    default: 1
+                    description: The first page
+                lastPage:
+                    type: integer
+                    default: 1
+                    description: The last page
+                page:
+                    type: integer
+                    default: 1
+                    description: The current page
+                limit:
+                    type: integer
+                    default: 5
+                    description: The number of records per page
+
+    responses:
+        "200NoData":
+            content:
+                application/json:
+                    schemas:
+                        type: object
+                        properties:
+                            status:
+                                type: string
+                                description: the response status
+                                enum:
+                                    - success
+                            data:
+                                type: object
+                                nullable: true
+                                default: null
+                                description: the response data
+
+    parameters:
+        contactIdParam:
+            name: id
+            description: Contact id
+            required: true
+            in: path
+            schemas:
+                type: integer
+
+        limitParam:
+            name: limit
+            description: Number of records per page
+            in: query
+            schemas:
+                type: integer
+                default: 5
+                minimum: 1
+                maximum: 100
+            required: false
+
+        pageParam:
+            name: page
+            description: Page number of records
+            in: query
+            schemas:
+                type: integer
+                default: 1
+                minimum: 1
+            required: false

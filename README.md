@@ -1,2 +1,2 @@
-# Web-Tecnologies-and-Services
+# Web-Technologies-and-Services
 Web Tecnologies and Services
